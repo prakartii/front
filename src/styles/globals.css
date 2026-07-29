@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background: #fbf8f4;
+  color: #2b2620;
+  font-family: "Manrope", sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* Respect reduced-motion users: kill decorative CSS-keyframe animation, keep
+   functional transitions. JS-driven scroll transforms (Framer Motion
+   useTransform) are gated separately via useReducedMotion()/useGatedTransform
+   in src/lib/motion.js — this rule alone doesn't reach those. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Glass, tuned to the pastel/premium world --- */
+.glass-panel {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.55),
+    rgba(223, 217, 242, 0.18)
+  );
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 20px 60px -10px rgba(91, 86, 80, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Frame for the hero video — lighter blur, heavier drop shadow, reads as a
+   floating physical object rather than a frosted wash */
+.glass-panel-video {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 30px 80px -20px rgba(43, 38, 32, 0.35);
+}
+
+.glass-nav {
+  background: rgba(251, 247, 240, 0.7);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Specular highlight that tracks cursor position — set via inline --mx/--my custom props */
+.glass-shine {
+  position: relative;
+  overflow: hidden;
+}
+.glass-shine::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    280px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.45),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.glass-shine:hover::before {
+  opacity: 1;
+}
+
+/* --- Depth layers: blobs, particles, light rays --- */
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  opacity: 0.55;
+  will-change: transform;
+  pointer-events: none;
+}
+.blob-lavender {
+  background: radial-gradient(circle at 30% 30%, #dfd9f2, transparent 70%);
+}
+.blob-blush {
+  background: radial-gradient(circle at 30% 30%, #f6d9d9, transparent 70%);
+}
+.blob-sage {
+  background: radial-gradient(circle at 30% 30%, #d7e4d3, transparent 70%);
+}
+.blob-peach {
+  background: radial-gradient(circle at 30% 30%, #f3d9bf, transparent 70%);
+}
+
+.particle-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.particle {
+  position: absolute;
+  bottom: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(223, 217, 242, 0.2));
+  animation: particle-rise 8s ease-in infinite;
+  will-change: transform, opacity;
+}
+
+.light-rays {
+  position: absolute;
+  inset: -20%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(255, 255, 255, 0.25),
+    transparent 12%,
+    transparent 25%,
+    rgba(246, 217, 217, 0.2) 32%,
+    transparent 45%,
+    transparent 60%,
+    rgba(223, 217, 242, 0.2) 68%,
+    transparent 80%,
+    rgba(255, 255, 255, 0.2) 92%,
+    transparent 100%
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* --- Editorial atmosphere: paper grain + soft directional light ---
+   Used deliberately, section by section — never a blanket wash. A
+   composition either earns a grain layer / light pool or it doesn't. */
+
+/* Fine fractal-noise grain, near-invisible, reads as tooth on cream —
+   a quiet callback to Sakhi's own "unfired bisqueware" material metaphor. */
+.paper-grain {
+  position: relative;
+}
+.paper-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Same fractal-noise grain as .paper-grain, but for the charcoal dark panel:
+   multiply-blend disappears against a dark background, so this uses
+   overlay-blend at a touch more opacity instead. */
+.paper-grain-dark {
+  position: relative;
+}
+.paper-grain-dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Hard-edged photo framing — the deliberate opposite of .glass-panel-video's
+   soft blur + heavy shadow. Reads as cut editorial paper: a hairline border
+   and a shallow, crisp shadow, no rounding. Founder Stories' signature photo
+   treatment, contrasted against Hero's organic-blob crop. */
+.hard-frame {
+  border: 1px solid rgba(43, 38, 32, 0.1);
+  box-shadow: 0 10px 30px -12px rgba(43, 38, 32, 0.28);
+}
+.hard-frame-dark {
+  border: 1px solid rgba(251, 248, 244, 0.15);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.45);
+}
+
+/* A single soft pool of tinted light — position/color/size/opacity set
+   per-usage via custom properties, so one primitive serves every section's
+   own mood instead of a fixed set of named blob colors. */
+.atmosphere {
+  position: absolute;
+  inset: -15%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    var(--atmo-size, 55%) var(--atmo-size, 45%) at var(--atmo-x, 50%) var(--atmo-y, 40%),
+    var(--atmo-color, #e8d2a6) 0%,
+    transparent 72%
+  );
+  opacity: var(--atmo-opacity, 0.4);
+  filter: blur(50px);
+}
+
+/* Focus visibility — never sacrificed for aesthetics */
+:focus-visible {
+  outline: 2px solid #c17a52;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
