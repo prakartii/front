@@ -179,4 +179,21 @@ export default {
   lang: {
     selectorLabel: "Language",
   },
+  login: {
+    eyebrow: "Welcome back",
+    heading: "What should Sakhi call you?",
+    subhead: "No password, no forms — just tell her who's here, and she'll pick up exactly where you left off.",
+    nameLabel: "Your name",
+    namePlaceholder: "Seema",
+    businessLabel: "Your business (optional)",
+    businessPlaceholder: "Seema Silks",
+    cta: "Enter your workspace",
+    backToSite: "← Back to sakhi.ai",
+  },
+  dashboard: {
+    shell: {
+      logout: "Log out",
+      nav: "Workspace",
+    },
+  },
 };

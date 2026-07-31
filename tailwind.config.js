@@ -24,6 +24,22 @@ export default {
         blush: {
           DEFAULT: "#F0D7D2",
           deep: "#E6C0B9",
+          bold: "#F5AFC0",
+        },
+        // New for the Lumora x Yellow-Marketplace pivot — warmer/bolder
+        // than the existing champagne/sand, and a true saturated yellow.
+        peach: {
+          DEFAULT: "#FFD9B8",
+          deep: "#FFC08A",
+        },
+        butter: {
+          DEFAULT: "#FFE9A8",
+          deep: "#FFDD7A",
+        },
+        // The palette had zero blue before this pivot.
+        powder: {
+          DEFAULT: "#C7E3F0",
+          deep: "#A9D3E8",
         },
         lavender: {
           DEFAULT: "#E3DBF0", // "Lavender Mist"
@@ -36,6 +52,7 @@ export default {
         coral: {
           DEFAULT: "#E6A489", // "Muted Coral"
           deep: "#D4886A",
+          bold: "#FF8F66",
         },
         rose: {
           DEFAULT: "#C98E86", // "Dusty Rose"
@@ -67,14 +84,37 @@ export default {
           600: "#5B5650",
           400: "#8B857C",
         },
+        // --- SAKHI V2 — full teardown palette (card-widget product
+        // language). Namespaced under v2- so it lives alongside the
+        // original palette without colliding; LandingPageV2 and its
+        // components are the only consumers until the swap.
+        v2: {
+          cream: "#FFF8F2",
+          warmwhite: "#FFFCF8",
+          blush: "#F8DDE5",
+          rose: "#EABFC6",
+          peach: "#FFD8C2",
+          butter: "#F9E7A4",
+          sage: "#DDE9D5",
+          powder: "#DCEBFA",
+          lavender: "#E9E4F7",
+          coral: "#F6B6A8",
+          brown: "#6F5748",
+          text: "#2F2B28",
+        },
       },
       fontFamily: {
         display: ["Fraunces", "serif"],
         body: ["Manrope", "sans-serif"],
         mono: ["IBM Plex Mono", "monospace"],
-        // Handwritten marginalia only — Sakhi's own voice, used once or
-        // twice per section at most. Never a primary content font.
+        // Sakhi's handwritten voice — the Lumora x Yellow-Marketplace
+        // pivot promotes this to a recurring visible content element
+        // (HandwrittenNote), not just a rare accent.
         script: ["Caveat", "cursive"],
+        // SAKHI V2 type system — Playfair Display / Inter, per the new
+        // card-widget product language.
+        display2: ["Playfair Display", "serif"],
+        body2: ["Inter", "sans-serif"],
       },
       fontSize: {
         "2xs": ["0.6875rem", { lineHeight: "1.5", letterSpacing: "0.16em" }],

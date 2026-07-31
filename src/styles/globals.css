@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -210,6 +210,16 @@ body {
   filter: blur(50px);
 }
 
+/* --- Lumora x Yellow-Marketplace pivot: the card system ---
+   Almost every piece of real content now lives inside one of these,
+   replacing the old floating-chip/torn-paper collage language. */
+.card-shadow {
+  box-shadow: 0 20px 50px -24px rgba(43, 38, 32, 0.28);
+}
+.card-shadow-lift {
+  box-shadow: 0 30px 65px -20px rgba(43, 38, 32, 0.34);
+}
+
 /* Focus visibility — never sacrificed for aesthetics */
 :focus-visible {
   outline: 2px solid #c17a52;
@@ -219,4 +229,116 @@ body {
 
 .text-balance {
   text-wrap: balance;
+}
+
+/* --- SAKHI V2 — card-widget product language ---
+   Warmer, closer shadow than the editorial .card-shadow (tuned to
+   v2-brown rather than ink-900), plus a tighter "chip" shadow for
+   overlapping badge/coin elements layered on a card's edge. */
+.v2-card-shadow {
+  box-shadow: 0 24px 60px -28px rgba(111, 87, 72, 0.35);
+}
+.v2-card-shadow-lift {
+  box-shadow: 0 34px 72px -24px rgba(111, 87, 72, 0.4);
+}
+.v2-chip-shadow {
+  box-shadow: 0 10px 24px -10px rgba(111, 87, 72, 0.32);
+}
+
+/* --- SAKHI V2 — Indian craft material pass ---
+   Not decoration, not motifs — the residue of hand-making: fibrous paper,
+   hand-dyed irregularity, running-stitch thread, a hand-formed (never
+   perfectly uniform) edge. Applied selectively, only to the "material"
+   layer (ghost cards, the paper-anchored lead card, the stage), never to
+   the product widgets themselves, which stay clean and digital on purpose
+   — Sakhi's intelligence sits crisp and legible inside a handcrafted world. */
+
+/* Handmade paper / khadi — a fine, slightly fibrous grain, warmer and a
+   touch coarser than the editorial .paper-grain. Self-clipping: applying
+   this class alone also rounds+clips the texture to the card's own
+   corners, so callers never need a separate overflow-hidden. */
+.v2-fiber-grain {
+  position: relative;
+  overflow: hidden;
+}
+.v2-fiber-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+}
+
+/* Natural/indigo dye — a soft mottled irregularity laid over a gradient
+   card, so it reads as hand-dyed cloth rather than a flat digital
+   gradient. Also self-clipping. */
+.v2-dye-bloom {
+  position: relative;
+  overflow: hidden;
+}
+.v2-dye-bloom::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23d)'/%3E%3C/svg%3E");
+}
+
+/* Woven cotton — an almost-invisible crosshatch for the page ground, the
+   texture of good paper stock rather than a flat digital fill. */
+.v2-weave-ground {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Cpath d='M0 0L10 10M10 0L0 10' stroke='%236F5748' stroke-opacity='0.04' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+
+/* A hairline warm border — the suggestion of a bound/finished fabric
+   edge on the few cards that carry it. */
+.v2-thread-edge {
+  border: 1px solid rgba(111, 87, 72, 0.12);
+}
+
+/* Notebook graph paper — a faint even grid, for the one or two surfaces
+   meant to read as a page pulled from a ruled notebook (the multilingual
+   map board) rather than plain card stock. */
+.v2-grid-paper {
+  background-image: linear-gradient(rgba(111, 87, 72, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(111, 87, 72, 0.07) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* Hand-formed rims — pottery thrown by hand is never perfectly round.
+   Four organic corner-radius variants to rotate through instead of one
+   uniform radius, on cards that should read as material rather than UI. */
+.v2-radius-a {
+  border-radius: 30px 22px 34px 24px;
+}
+.v2-radius-b {
+  border-radius: 22px 32px 20px 34px;
+}
+.v2-radius-c {
+  border-radius: 34px 20px 26px 30px;
+}
+.v2-radius-d {
+  border-radius: 24px 30px 22px 32px;
+}
+
+/* Brass — a faint warm sheen, not a new color. Every Coin picks this up
+   by default: a small circular token catching a little light. */
+.v2-brass-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.v2-brass-sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 90% at 28% 22%,
+    rgba(255, 244, 219, 0.55),
+    transparent 55%
+  );
 }

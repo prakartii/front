@@ -16,6 +16,9 @@ export default function ConnectorLine({
   opacity = 0.45,
   width = 1.4,
   dashed = false,
+  // Kantha running-stitch — short, slightly irregular dashes standing in
+  // for hand-stitched thread, rather than a mechanically even dash rule.
+  stitch = false,
   delay = 0,
   className = "",
 }) {
@@ -40,11 +43,11 @@ export default function ConnectorLine({
       <motion.path
         d={d}
         stroke={color}
-        strokeWidth={width}
+        strokeWidth={stitch ? width + 0.3 : width}
         strokeLinecap="round"
         fill="none"
         vectorEffect="non-scaling-stroke"
-        strokeDasharray={dashed ? "3 4" : undefined}
+        strokeDasharray={stitch ? "5 2.2 1.5 2.6" : dashed ? "3 4" : undefined}
         initial={{ pathLength: 0, opacity: 0 }}
         whileInView={{ pathLength: 1, opacity: reduced ? opacity * 0.7 : opacity }}
         viewport={{ once: true, margin: "-10% 0px" }}
